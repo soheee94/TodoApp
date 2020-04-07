@@ -14,7 +14,7 @@ function TodoItem({ todo }) {
         <Text done={done}>{text}</Text>
         <div>
           {ref.map(refId => (
-            <RefTodoItem>@{refId}</RefTodoItem>
+            <RefTodoItem key={refId}>@{refId}</RefTodoItem>
           ))}
         </div>
       </div>

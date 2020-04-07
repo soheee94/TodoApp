@@ -8,7 +8,7 @@ function TodoList({ todos }) {
     <TodoListBlock>
       <TodoHead />
       {todos.map(todo => (
-        <TodoItem todo={todo} />
+        <TodoItem todo={todo} key={todo.id} />
       ))}
     </TodoListBlock>
   );
