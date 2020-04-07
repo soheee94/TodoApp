@@ -1,19 +1,22 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { MdDone } from "react-icons/md";
+import { MdDone, MdDelete } from "react-icons/md";
 import palette from "../palette";
 
 function TodoItem({ done }) {
   return (
     <TodoItemBlock>
       <Checkbox done={done}>{done && <MdDone />}</Checkbox>
-      <div>
+      <TextBlock>
         <Text done={done}>할일이에요</Text>
         <div>
           <RefTodoItem>@Todo1</RefTodoItem>
           <RefTodoItem>@Todo2</RefTodoItem>
         </div>
-      </div>
+      </TextBlock>
+      <Delete>
+        <MdDelete />
+      </Delete>
     </TodoItemBlock>
   );
 }
@@ -29,7 +32,7 @@ const TodoItemBlock = styled.div`
 const Checkbox = styled.div`
   width: 20px;
   height: 20px;
-  border: 1.2px solid #999;
+  border: 1.2px solid ${palette.gray};
   border-radius: 100%;
   font-size: 1.25rem;
   display: flex;
@@ -44,6 +47,10 @@ const Checkbox = styled.div`
       color: white;
       border: 1.2px solid ${palette.yellow};
     `}
+`;
+
+const TextBlock = styled.div`
+  flex: 1;
 `;
 
 const Text = styled.div`
@@ -64,6 +71,16 @@ const RefTodoItem = styled.span`
   display: inline-block;
   margin-right: 8px;
   font-size: 0.75rem;
+`;
+
+const Delete = styled.div`
+  color: ${palette.gray};
+  cursor: pointer;
+  font-size: 1.25rem;
+  opacity: 1;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export default TodoItem;
