@@ -6,10 +6,14 @@ import TodoAddForm from "../components/TodoAddForm";
 
 function TodoContainer() {
   const todos = useSelector(state => state.todos);
+  const dispatch = useDispatch();
+
+  const onCreate = text => dispatch();
+
   return (
     <TodoTemplate>
       <TodoList todos={todos} />
-      <TodoAddForm />
+      <TodoAddForm todos={todos} />
     </TodoTemplate>
   );
 }
