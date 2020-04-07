@@ -6,18 +6,18 @@ import palette from "../palette";
 function TodoItem({ done }) {
   return (
     <TodoItemBlock>
-      <Checkbox done={done}>{done && <MdDone />}</Checkbox>
-      <TextBlock>
+      <div>
+        <Checkbox done={done}>{done && <MdDone />}</Checkbox>
+      </div>
+      <div>
         <Text done={done}>할일이에요</Text>
         <div>
           <RefTodoItem>@Todo1</RefTodoItem>
           <RefTodoItem>@Todo2</RefTodoItem>
         </div>
-      </TextBlock>
-      <DateBlock>
-        <p>2020-04-07</p>
-        <p>2020-04-07</p>
-      </DateBlock>
+      </div>
+      <DateBlock>2020-04-07</DateBlock>
+      <DateBlock>2020-04-07</DateBlock>
       <Delete>
         <MdDelete />
       </Delete>
@@ -26,11 +26,12 @@ function TodoItem({ done }) {
 }
 
 const TodoItemBlock = styled.div`
-  display: flex;
-  align-items: center;
-  background: white;
-  padding: 15px;
+  display: table-row;
   font-size: 0.875rem;
+  & > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
 `;
 
 const Checkbox = styled.div`
@@ -53,15 +54,9 @@ const Checkbox = styled.div`
     `}
 `;
 
-const TextBlock = styled.div`
-  flex: 1;
-`;
-
 const Text = styled.div`
   color: ${palette.darkgray};
   font-weight: bold;
-  display: flex;
-  align-items: center;
   ${props =>
     props.done &&
     css`
@@ -78,16 +73,13 @@ const RefTodoItem = styled.span`
 
 const DateBlock = styled.div`
   font-size: 0.75rem;
-  display: flex;
-  p {
-    margin-right: 10px;
-  }
 `;
 
 const Delete = styled.div`
   cursor: pointer;
   font-size: 1.25rem;
   opacity: 1;
+  text-align: right;
   &:hover {
     opacity: 0.8;
   }
