@@ -14,6 +14,10 @@ function TodoItem({ done }) {
           <RefTodoItem>@Todo2</RefTodoItem>
         </div>
       </TextBlock>
+      <DateBlock>
+        <p>2020-04-07</p>
+        <p>2020-04-07</p>
+      </DateBlock>
       <Delete>
         <MdDelete />
       </Delete>
@@ -67,14 +71,20 @@ const Text = styled.div`
 `;
 
 const RefTodoItem = styled.span`
-  color: ${palette.gray};
   display: inline-block;
   margin-right: 8px;
   font-size: 0.75rem;
 `;
 
+const DateBlock = styled.div`
+  font-size: 0.75rem;
+  display: flex;
+  p {
+    margin-right: 10px;
+  }
+`;
+
 const Delete = styled.div`
-  color: ${palette.gray};
   cursor: pointer;
   font-size: 1.25rem;
   opacity: 1;
