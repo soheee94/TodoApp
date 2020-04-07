@@ -3,13 +3,13 @@ import styled from "styled-components";
 import TodoItem from "./TodoItem";
 import TodoHead from "./TodoHead";
 
-function TodoList() {
+function TodoList({ todos }) {
   return (
     <TodoListBlock>
       <TodoHead />
-      <TodoItem done />
-      <TodoItem />
-      <TodoItem />
+      {todos.map(todo => (
+        <TodoItem todo={todo} />
+      ))}
     </TodoListBlock>
   );
 }

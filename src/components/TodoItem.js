@@ -3,21 +3,23 @@ import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
 import palette from "../palette";
 
-function TodoItem({ done }) {
+function TodoItem({ todo }) {
+  const { text, done, createdDate, modifiedDate, ref } = todo;
   return (
     <TodoItemBlock>
       <div>
         <Checkbox done={done}>{done && <MdDone />}</Checkbox>
       </div>
       <div>
-        <Text done={done}>할일이에요</Text>
+        <Text done={done}>{text}</Text>
         <div>
-          <RefTodoItem>@Todo1</RefTodoItem>
-          <RefTodoItem>@Todo2</RefTodoItem>
+          {ref.map(refId => (
+            <RefTodoItem>@{refId}</RefTodoItem>
+          ))}
         </div>
       </div>
-      <DateBlock>2020-04-07</DateBlock>
-      <DateBlock>2020-04-07</DateBlock>
+      <DateBlock>{createdDate}</DateBlock>
+      <DateBlock>{modifiedDate}</DateBlock>
       <Delete>
         <MdDelete />
       </Delete>
