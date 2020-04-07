@@ -4,10 +4,11 @@ import { MdAdd } from "react-icons/md";
 import palette from "../palette";
 import { Multiselect } from "multiselect-react-dropdown";
 
-function TodoAddForm({ todos }) {
+function TodoAddForm({ todos, onCreate }) {
   const onSubmit = e => {
     // 새로고침 방지
     e.preventDefault();
+    console.log("submit");
   };
   const onSelect = (selectedList, selctedItem) => {
     console.log(selectedList, selctedItem);
@@ -25,7 +26,7 @@ function TodoAddForm({ todos }) {
             style={multiSelectStyle}
           />
         </div>
-        <Button>
+        <Button type="submit">
           <MdAdd />
         </Button>
       </Form>

@@ -1,8 +1,8 @@
 /* 액션 타입 선언 */
-const ADD = "todos/ADD";
-const DELETE = "todos/DELETE";
-const TOGGLE = "todos/TOGGLE";
-const MODIFY = "todos/MODIFY";
+const ADD_TODO = "todos/ADD_TODO";
+const DELETE_TODO = "todos/DELETE_TODO";
+const TOGGLE_TODO = "todos/TOGGLE_TODO";
+const MODIFY_TODO = "todos/MODIFY_TODO";
 
 // 초기상태
 const initialState = [
@@ -33,7 +33,7 @@ const initialState = [
 ];
 
 export const addTodo = text => ({
-  type: ADD,
+  type: ADD_TODO,
   todo: {
     id: 0,
     text,
