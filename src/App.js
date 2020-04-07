@@ -5,6 +5,7 @@ import TodoTemplate from "./components/TodoTemplate";
 import TodoAddForm from "./components/TodoAddForm";
 import TodoList from "./components/TodoList";
 import palette from "./palette";
+import TodoSearch from "./components/TodoSearch";
 
 function App() {
   const fetchUsers = async () => {
@@ -31,6 +32,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <TodoSearch />
       <TodoTemplate>
         <TodoList />
         <TodoAddForm />
