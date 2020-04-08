@@ -72,6 +72,7 @@ const Input = styled.input`
   padding: 12px;
   box-sizing: border-box;
   width: 100%;
+  font-size: 0.875rem;
   color: ${palette.darkgray};
   font-family: inherit;
   &::placeholder {

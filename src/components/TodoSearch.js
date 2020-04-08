@@ -15,6 +15,7 @@ const TodoSearchBlock = styled.input`
   outline: none;
   border: none;
   padding: 15px;
+  font-size: 0.875rem;
   box-sizing: border-box;
   font-family: inherit;
   color: ${palette.darkgray};

@@ -13,7 +13,7 @@ function TodoContainer() {
   return (
     <TodoTemplate>
       <TodoList todos={todos} />
-      <TodoAddForm todos={todos} />
+      <TodoAddForm todos={todos} onCreate={onCreate} />
     </TodoTemplate>
   );
 }
