@@ -3,8 +3,9 @@ import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdCreate } from "react-icons/md";
 import palette from "../palette";
 
-function TodoItem({ todo, onDelete }) {
+function TodoItem({ todo, getRefText, onDelete }) {
   const { id, text, done, createdDate, modifiedDate, ref } = todo;
+  const refText = getRefText(ref);
 
   return (
     <TodoItemBlock>
@@ -14,9 +15,7 @@ function TodoItem({ todo, onDelete }) {
       <div>
         <Text done={done}>{text}</Text>
         <div>
-          {ref.map(refId => (
-            <RefTodoItem key={refId}>@{refId}</RefTodoItem>
-          ))}
+          {refText && refText.map(ref => <RefTodoItem key={ref.id}>@{ref.text}</RefTodoItem>)}
         </div>
       </div>
       <DateBlock>{createdDate}</DateBlock>

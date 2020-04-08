@@ -37,11 +37,11 @@ app.post("/api/todos", (req, res) => {
     text: req.body.text,
     done: false,
     createdDate: getNowDate(),
-    modifiedDate: "",
+    modifiedDate: getNowDate(),
     ref: req.body.ref
   };
   todos.push(todo);
-  res.send(todo);
+  res.send(todos);
 });
 
 // put
@@ -67,7 +67,7 @@ app.delete("/api/todos/:id", (req, res) => {
   const index = todos.indexOf(todo);
   todos.splice(index, 1);
   // 4. Return the same todo
-  res.send(todo);
+  res.send(todos);
 });
 
 app.listen(port, () => {

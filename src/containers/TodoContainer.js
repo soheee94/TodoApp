@@ -14,19 +14,40 @@ function TodoContainer() {
     dispatch(getTodos());
   }, [dispatch]);
 
-  const onCreate = data => {
-    dispatch(postTodo(data));
-    dispatch(getTodos());
+  // 참조값 조회
+  const getRefText = ref => {
+    const refText = [];
+    ref.forEach(element => {
+      const found = todos.find(todo => todo.id === element);
+      refText.push(found);
+    });
+    return refText;
   };
 
-  const onDelete = id => {
-    dispatch(deleteTodo(id));
+  // 생성
+  const onCreate = data => {
+    dispatch(postTodo(data));
   };
+
+  // 삭제
+  const onDelete = id => {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("삭제하시겠습니까?")) {
+      dispatch(deleteTodo(id));
+    }
+  };
+
+  // 상태 전환
+
+  // 수정
 
   return (
     <TodoTemplate>
       <TodoList>
-        {todos && todos.map(todo => <TodoItem todo={todo} key={todo.id} onDelete={onDelete} />)}
+        {todos &&
+          todos.map(todo => (
+            <TodoItem todo={todo} getRefText={getRefText} key={todo.id} onDelete={onDelete} />
+          ))}
       </TodoList>
       <TodoAddForm todos={todos} onCreate={onCreate} />
     </TodoTemplate>
