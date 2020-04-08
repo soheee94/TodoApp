@@ -18,3 +18,8 @@ export const deleteTodo = async id => {
   const response = await axios.delete(`/api/todos/${id}`);
   return response.data;
 };
+
+export const toggleTodo = async id => {
+  const response = await axios.put(`/api/todos/${id}/done`);
+  return response.data;
+};

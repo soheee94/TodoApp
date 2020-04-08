@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TodoTemplate from "../components/TodoTemplate";
 import TodoList from "../components/TodoList";
 import TodoAddForm from "../components/TodoAddForm";
-import { getTodos, postTodo, deleteTodo } from "../modules/todos";
+import { getTodos, postTodo, deleteTodo, toggleTodo } from "../modules/todos";
 import TodoItem from "../components/TodoItem";
 
 function TodoContainer() {
@@ -38,6 +38,9 @@ function TodoContainer() {
   };
 
   // 상태 전환
+  const onToggle = id => {
+    dispatch(toggleTodo(id));
+  };
 
   // 수정
 
@@ -46,7 +49,13 @@ function TodoContainer() {
       <TodoList>
         {todos &&
           todos.map(todo => (
-            <TodoItem todo={todo} getRefText={getRefText} key={todo.id} onDelete={onDelete} />
+            <TodoItem
+              todo={todo}
+              getRefText={getRefText}
+              key={todo.id}
+              onDelete={onDelete}
+              onToggle={onToggle}
+            />
           ))}
       </TodoList>
       <TodoAddForm todos={todos} onCreate={onCreate} />

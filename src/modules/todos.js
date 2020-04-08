@@ -36,11 +36,13 @@ export const toggleTodo = id => ({ type: TOGGLE_TODO, payload: id });
 const getTodosSaga = createPromiseSaga(GET_TODOS, todosAPI.getTodos);
 const postTodoSaga = createPromiseSaga(POST_TODO, todosAPI.postTodo);
 const deleteTodoSaga = createPromiseSaga(DELETE_TODO, todosAPI.deleteTodo);
+const toggleTodoSaga = createPromiseSaga(TOGGLE_TODO, todosAPI.toggleTodo);
 
 export function* todosSaga() {
   yield takeEvery(GET_TODOS, getTodosSaga);
   yield takeLatest(POST_TODO, postTodoSaga);
   yield takeLatest(DELETE_TODO, deleteTodoSaga);
+  yield takeEvery(TOGGLE_TODO, toggleTodoSaga);
 }
 
 export default function todo(state = initialState, action) {
@@ -57,6 +59,10 @@ export default function todo(state = initialState, action) {
     case DELETE_TODO_SUCCESS:
     case DELETE_TODO_ERROR:
       return handleAsyncActions(DELETE_TODO, true)(state, action);
+    case TOGGLE_TODO:
+    case TOGGLE_TODO_SUCCESS:
+    case TOGGLE_TODO_ERROR:
+      return handleAsyncActions(TOGGLE_TODO, true)(state, action);
     default:
       return state;
   }

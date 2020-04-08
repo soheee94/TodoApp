@@ -54,7 +54,17 @@ app.put("/api/todos/:id", (req, res) => {
   todo.done = req.body.done;
   todo.modifiedDate = "";
   todo.ref = [];
-  res.send(todo);
+  res.send(todos);
+});
+
+// put - done(toggle)
+app.put("/api/todos/:id/done", (req, res) => {
+  // Look up the todos
+  const todo = todos.find(c => c.id === parseInt(req.params.id));
+  // If not existing, return 404
+  if (!todo) res.status(404).send(`ID was not found`);
+  todo.done = !todo.done;
+  res.send(todos);
 });
 
 // delete

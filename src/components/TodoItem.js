@@ -3,14 +3,16 @@ import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdCreate } from "react-icons/md";
 import palette from "../palette";
 
-function TodoItem({ todo, getRefText, onDelete }) {
+function TodoItem({ todo, getRefText, onDelete, onToggle }) {
   const { id, text, done, createdDate, modifiedDate, ref } = todo;
   const refText = getRefText(ref);
 
   return (
     <TodoItemBlock>
       <div>
-        <Checkbox done={done}>{done && <MdDone />}</Checkbox>
+        <Checkbox done={done} onClick={() => onToggle(id)}>
+          {done && <MdDone />}
+        </Checkbox>
       </div>
       <div>
         <Text done={done}>{text}</Text>
