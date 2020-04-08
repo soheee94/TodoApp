@@ -7,9 +7,7 @@ function TodoList({ todos }) {
   return (
     <TodoListBlock>
       <TodoHead />
-      {todos.map(todo => (
-        <TodoItem todo={todo} key={todo.id} />
-      ))}
+      {todos && todos.map(todo => <TodoItem todo={todo} key={todo.id} />)}
     </TodoListBlock>
   );
 }

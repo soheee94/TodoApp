@@ -19,7 +19,7 @@ function TodoAddForm({ todos, onCreate }) {
         <div style={{ marginRight: `15px`, flex: 1 }}>
           <Input placeholder="할 일을 입력하세요" autoFocus></Input>
           <Multiselect
-            options={todos}
+            options={todos ? todos : []}
             displayValue="text"
             onSelect={onSelect}
             placeholder="먼저 할 일"
