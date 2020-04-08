@@ -38,8 +38,14 @@ function TodoContainer() {
   };
 
   // 상태 전환
-  const onToggle = id => {
-    dispatch(toggleTodo(id));
+  const onToggle = (id, ref) => {
+    // ref 상태 먼저 확인
+    const refStatusCheck = element => {
+      const found = todos.find(todo => todo.id === element);
+      return found.done;
+    };
+    ref.some(refStatusCheck) ? dispatch(toggleTodo(id)) : alert("먼저 할 일을 완료해주세요!");
+    // 참조 된 TODO 도 해제
   };
 
   // 수정

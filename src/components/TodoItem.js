@@ -10,7 +10,7 @@ function TodoItem({ todo, getRefText, onDelete, onToggle }) {
   return (
     <TodoItemBlock>
       <div>
-        <Checkbox done={done} onClick={() => onToggle(id)}>
+        <Checkbox done={done} onClick={() => onToggle(id, ref)}>
           {done && <MdDone />}
         </Checkbox>
       </div>
