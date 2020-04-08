@@ -32,6 +32,7 @@ function TodoAddForm({ todos, onCreate }) {
             autoFocus
             value={value}
             onChange={onChange}
+            required
           ></Input>
           <Multiselect
             options={todos ? todos : []}
