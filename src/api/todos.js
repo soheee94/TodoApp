@@ -13,3 +13,8 @@ export const postTodo = async data => {
   });
   return response.data;
 };
+
+export const deleteTodo = async id => {
+  const response = await axios.delete(`/api/todos/${id}`);
+  return response.data;
+};

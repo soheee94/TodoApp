@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import TodoItem from "./TodoItem";
 import TodoHead from "./TodoHead";
 
-function TodoList({ todos }) {
+function TodoList({ children }) {
   return (
     <TodoListBlock>
       <TodoHead />
-      {todos && todos.map(todo => <TodoItem todo={todo} key={todo.id} />)}
+      {children}
     </TodoListBlock>
   );
 }

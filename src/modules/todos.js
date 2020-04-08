@@ -11,7 +11,10 @@ const POST_TODO = "todos/POST_TODO";
 const POST_TODO_SUCCESS = "todos/POST_TODO_SUCCESS";
 const POST_TODO_ERROR = "todos/POST_TODO_SUCCESS";
 
-// const DELETE_TODO = "todos/DELETE_TODO";
+const DELETE_TODO = "todos/DELETE_TODO";
+const DELETE_TODO_SUCCESS = "todos/DELETE_TODO_SUCCESS";
+const DELETE_TODO_ERROR = "todos/DELETE_TODO_ERROR";
+
 // const TOGGLE_TODO = "todos/TOGGLE_TODO";
 // const MODIFY_TODO = "todos/MODIFY_TODO";
 
@@ -24,13 +27,16 @@ const initialState = {
 
 export const getTodos = () => ({ type: GET_TODOS });
 export const postTodo = data => ({ type: POST_TODO, payload: data });
+export const deleteTodo = id => ({ type: DELETE_TODO, payload: id });
 
 const getTodosSaga = createPromiseSaga(GET_TODOS, todosAPI.getTodos);
 const postTodoSaga = createPromiseSaga(POST_TODO, todosAPI.postTodo);
+const deleteTodoSaga = createPromiseSaga(DELETE_TODO, todosAPI.deleteTodo);
 
 export function* todosSaga() {
   yield takeEvery(GET_TODOS, getTodosSaga);
   yield takeLatest(POST_TODO, postTodoSaga);
+  yield takeLatest(DELETE_TODO, deleteTodoSaga);
 }
 
 export default function todo(state = initialState, action) {

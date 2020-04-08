@@ -8,7 +8,7 @@ function TodoHead() {
       <div>내용</div>
       <div>작성일</div>
       <div>수정일</div>
-      <div>삭제</div>
+      <div></div>
     </TodoHeadBlock>
   );
 }

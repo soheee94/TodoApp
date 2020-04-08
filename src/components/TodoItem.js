@@ -1,10 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { MdDone, MdDelete } from "react-icons/md";
+import { MdDone, MdDelete, MdCreate } from "react-icons/md";
 import palette from "../palette";
 
-function TodoItem({ todo }) {
-  const { text, done, createdDate, modifiedDate, ref } = todo;
+function TodoItem({ todo, onDelete }) {
+  const { id, text, done, createdDate, modifiedDate, ref } = todo;
+
   return (
     <TodoItemBlock>
       <div>
@@ -20,9 +21,10 @@ function TodoItem({ todo }) {
       </div>
       <DateBlock>{createdDate}</DateBlock>
       <DateBlock>{modifiedDate}</DateBlock>
-      <Delete>
-        <MdDelete />
-      </Delete>
+      <ActionBlock>
+        <MdCreate />
+        <MdDelete onClick={() => onDelete(id)} />
+      </ActionBlock>
     </TodoItemBlock>
   );
 }
@@ -77,13 +79,16 @@ const DateBlock = styled.div`
   font-size: 0.75rem;
 `;
 
-const Delete = styled.div`
+const ActionBlock = styled.div`
   cursor: pointer;
   font-size: 1.25rem;
   opacity: 1;
   text-align: right;
-  &:hover {
-    opacity: 0.8;
+  svg {
+    margin-left: 0.5rem;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 `;
 
