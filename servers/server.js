@@ -6,32 +6,17 @@ const port = process.env.PORT || 3001;
 
 app.use(cors());
 
-const todos = [
-  {
-    id: 1,
-    text: "예시",
-    done: false,
-    createdDate: "2020-04-07",
-    modifiedDate: "2020-04-07",
-    ref: [1, 3]
-  },
-  {
-    id: 2,
-    text: "예시2",
-    done: true,
-    createdDate: "2020-05-07",
-    modifiedDate: "2020-04-07",
-    ref: []
-  },
-  {
-    id: 3,
-    text: "예시3",
-    done: true,
-    createdDate: "2020-05-07",
-    modifiedDate: "2020-04-07",
-    ref: [1, 2]
-  }
-];
+function getNowDate() {
+  const date = new Date();
+  var year = date.getFullYear();
+  var month = 1 + date.getMonth();
+  month = month >= 10 ? month : "0" + month;
+  var day = date.getDate();
+  day = day >= 10 ? day : "0" + day;
+  return `${year}-${month}-${day}`;
+}
+
+const todos = [];
 app.use(bodyParser.json());
 
 // get todos
@@ -51,9 +36,9 @@ app.post("/api/todos", (req, res) => {
     id: todos.length + 1,
     text: req.body.text,
     done: false,
-    createdDate: "2020-05-07",
-    modifiedDate: "2020-04-07",
-    ref: []
+    createdDate: getNowDate(),
+    modifiedDate: "",
+    ref: req.body.ref
   };
   todos.push(todo);
   res.send(todo);

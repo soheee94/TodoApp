@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TodoTemplate from "../components/TodoTemplate";
 import TodoList from "../components/TodoList";
 import TodoAddForm from "../components/TodoAddForm";
-import { getTodos } from "../modules/todos";
+import { getTodos, postTodo } from "../modules/todos";
 
 function TodoContainer() {
   const todos = useSelector(state => state.todos.data);
@@ -13,7 +13,10 @@ function TodoContainer() {
     dispatch(getTodos());
   }, [dispatch]);
 
-  const onCreate = text => dispatch();
+  const onCreate = data => {
+    dispatch(postTodo(data));
+    dispatch(getTodos());
+  };
 
   return (
     <TodoTemplate>

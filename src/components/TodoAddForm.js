@@ -5,23 +5,39 @@ import palette from "../palette";
 import { Multiselect } from "multiselect-react-dropdown";
 
 function TodoAddForm({ todos, onCreate }) {
+  const [value, setValue] = useState("");
+  const [selectedList, setSelectedList] = useState([]);
   const onSubmit = e => {
     // 새로고침 방지
     e.preventDefault();
-    console.log("submit");
+    onCreate({
+      text: value,
+      ref: [...new Set(selectedList.map(selectedItem => selectedItem.id))]
+    });
+    setValue("");
+    setSelectedList([]);
   };
-  const onSelect = (selectedList, selctedItem) => {
-    console.log(selectedList, selctedItem);
+  const onSelect = selectedList => {
+    setSelectedList(selectedList);
+  };
+  const onChange = e => {
+    setValue(e.target.value);
   };
   return (
     <>
       <Form onSubmit={onSubmit}>
         <div style={{ marginRight: `15px`, flex: 1 }}>
-          <Input placeholder="할 일을 입력하세요" autoFocus></Input>
+          <Input
+            placeholder="할 일을 입력하세요"
+            autoFocus
+            value={value}
+            onChange={onChange}
+          ></Input>
           <Multiselect
             options={todos ? todos : []}
             displayValue="text"
             onSelect={onSelect}
+            selectedValues={selectedList}
             placeholder="먼저 할 일"
             style={multiSelectStyle}
           />
