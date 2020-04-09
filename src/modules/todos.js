@@ -27,6 +27,8 @@ const PUT_TODO = "todos/PUT_TODO";
 const PUT_TODO_SUCCESS = "todos/PUT_TODO_SUCCESS";
 const PUT_TODO_ERROR = "todos/PUT_TODO_ERROR";
 
+const CHANGE_SEARCH = "todos/CHANGE_SEARCH";
+
 // 초기상태
 const initialState = {
   todos: {
@@ -35,6 +37,7 @@ const initialState = {
     error: null
   },
   todo: {},
+  keyword: "",
   modalOpen: false
 };
 
@@ -46,6 +49,7 @@ export const showModal = () => ({ type: SHOW_MODAL });
 export const closeModal = () => ({ type: CLOSE_MODAL });
 export const setTodo = data => ({ type: SET_TODO, payload: data });
 export const putTodo = data => ({ type: PUT_TODO, payload: data });
+export const changeSearch = keyword => ({ type: CHANGE_SEARCH, payload: keyword });
 
 const getTodosSaga = createPromiseSaga(GET_TODOS, todosAPI.getTodos);
 const postTodoSaga = createPromiseSaga(POST_TODO, todosAPI.postTodo);
@@ -97,6 +101,11 @@ export default function todo(state = initialState, action) {
       return {
         ...state,
         todo: action.payload
+      };
+    case CHANGE_SEARCH:
+      return {
+        ...state,
+        keyword: action.payload
       };
     default:
       return state;

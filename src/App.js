@@ -1,11 +1,11 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 import palette from "./palette";
-import TodoSearch from "./components/TodoSearch";
 import TodoListContainer from "./containers/TodoListContainer";
 import TodoModalContainer from "./containers/TodoModalContainer";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoFormContainer from "./containers/TodoFormContainer";
+import TodoSearchContainer from "./containers/TodoSearchContainer";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -23,6 +23,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <TodoSearchContainer />
       <TodoTemplate>
         <TodoListContainer />
         <TodoFormContainer />

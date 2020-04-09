@@ -4,10 +4,10 @@ import { getTodos, deleteTodo, toggleTodo, showModal, setTodo } from "../modules
 import TodoItem from "../components/TodoItem";
 import TodoPagination from "../components/TodoPagination";
 import TodoListTemplate from "../components/TodoListTemplate";
-import TodoSearch from "../components/TodoSearch";
 
 function TodoContainer() {
   const { loading, data: todos, error } = useSelector(state => state.todos.todos);
+  const keyword = useSelector(state => state.todos.keyword);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,19 +59,23 @@ function TodoContainer() {
     setCurrentPage(parseInt(e.target.id));
   };
 
-  // 검색
-
   if (loading && !todos) return <div>로딩중</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!todos) return <div>할 일이 없습니다.</div>;
 
-  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
-  for (let i = 1; i <= Math.ceil(todos.length / todosPerPage); i++) {
+  // 검색 후
+  const todoList = todos.filter(
+    todo =>
+      todo.text.search(keyword) >= 0 ||
+      todo.createdDate.search(keyword) >= 0 ||
+      todo.modifiedDate.search(keyword) >= 0
+  );
+  const currentTodos = todoList.slice(indexOfFirstTodo, indexOfLastTodo);
+  for (let i = 1; i <= Math.ceil(todoList.length / todosPerPage); i++) {
     pageNumbers.push(i);
   }
   return (
     <>
-      <TodoSearch />
       <TodoListTemplate>
         {currentTodos.map(todo => (
           <TodoItem

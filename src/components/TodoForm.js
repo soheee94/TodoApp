@@ -79,7 +79,7 @@ const Form = styled.form`
   display: flex;
   align-items: center;
   margin-bottom: 15px;
-  /* padding-top: 15px; */
+  padding-top: 15px;
   border-top: 1px solid ${palette.lightgray};
 `;
 
@@ -87,7 +87,7 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 5px;
-  padding: 15px;
+  padding: 12px;
   box-sizing: border-box;
   width: 100%;
   font-size: 0.875rem;
