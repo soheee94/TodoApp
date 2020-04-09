@@ -44,8 +44,7 @@ function TodoContainer() {
       const found = todos.find(todo => todo.id === element);
       return found.done;
     };
-    ref.some(refStatusCheck) ? dispatch(toggleTodo(id)) : alert("먼저 할 일을 완료해주세요!");
-    // 참조 된 TODO 도 해제
+    ref.every(refStatusCheck) ? dispatch(toggleTodo(id)) : alert("먼저 할 일을 완료해주세요!");
   };
 
   // 수정

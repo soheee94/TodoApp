@@ -46,37 +46,54 @@ app.post("/api/todos", (req, res) => {
 
 // put
 app.put("/api/todos/:id", (req, res) => {
-  // Look up the todos
   const todo = todos.find(c => c.id === parseInt(req.params.id));
-  // If not existing, return 404
+  // 해당 ID 를 가진 todo가 없을 때, 404
   if (!todo) res.status(404).send(`ID was not found`);
   todo.text = req.body.text;
-  todo.done = req.body.done;
-  todo.modifiedDate = "";
-  todo.ref = [];
+  todo.modifiedDate = getNowDate();
+  todo.ref = req.body.ref;
   res.send(todos);
 });
 
 // put - done(toggle)
 app.put("/api/todos/:id/done", (req, res) => {
-  // Look up the todos
   const todo = todos.find(c => c.id === parseInt(req.params.id));
-  // If not existing, return 404
+  // 해당 ID 를 가진 todo가 없을 때, 404
   if (!todo) res.status(404).send(`ID was not found`);
   todo.done = !todo.done;
+  // 완료 해제시, 자신을 참조 하고 있는 할 일도 완료 되어있을 때 해제
+  if (!todo.done) {
+    const refCheck = async () => {
+      await todos.forEach(targetTodo => {
+        if (targetTodo.ref.includes(todo.id)) {
+          targetTodo.done = false;
+        }
+      });
+    };
+
+    refCheck();
+  }
   res.send(todos);
 });
 
 // delete
 app.delete("/api/todos/:id", (req, res) => {
-  // 1. Look up the todos
   const todo = todos.find(c => c.id === parseInt(req.params.id));
-  // 2. Not existing, return 404
+  // 해당 ID 를 가진 todo가 없을 때, 404
   if (!todo) return res.status(404).send(`ID was not found`);
-  // 3. Delete
   const index = todos.indexOf(todo);
+  // 삭제 전, 자신을 참조하고 있는 할 일에서도 참조 해제
+  const refCheck = async () => {
+    await todos.forEach(targetTodo => {
+      if (targetTodo.ref.includes(todo.id)) {
+        const idx = targetTodo.ref.indexOf(todo.id);
+        targetTodo.ref.splice(idx, 1);
+      }
+    });
+  };
+  refCheck();
+  // 삭제
   todos.splice(index, 1);
-  // 4. Return the same todo
   res.send(todos);
 });
 
