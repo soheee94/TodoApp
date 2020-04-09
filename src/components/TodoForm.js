@@ -59,10 +59,12 @@ const multiSelectStyle = {
     display: "flex",
     alignItems: "center",
     color: palette.gray,
-    fontFamily: "inherit"
+    fontFamily: "inherit",
+    padding: "10px 15px",
+    borderRadius: "10px"
   },
   inputField: {
-    margin: "5px"
+    margin: "0"
   },
   chips: {
     background: palette.blue,
@@ -77,7 +79,7 @@ const Form = styled.form`
   display: flex;
   align-items: center;
   margin-bottom: 15px;
-  padding-top: 15px;
+  /* padding-top: 15px; */
   border-top: 1px solid ${palette.lightgray};
 `;
 
@@ -85,7 +87,7 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 5px;
-  padding: 12px;
+  padding: 15px;
   box-sizing: border-box;
   width: 100%;
   font-size: 0.875rem;

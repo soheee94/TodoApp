@@ -7,18 +7,19 @@ function TodoSearch() {
 }
 
 const TodoSearchBlock = styled.input`
-  width: 700px;
+  width: 100%;
   height: 50px;
   background: white;
   margin: 0 auto 15px auto;
   border-radius: 10px;
   outline: none;
-  border: none;
+  border: 1px solid ${palette.lightgray};
   padding: 15px;
   font-size: 0.875rem;
   box-sizing: border-box;
   font-family: inherit;
   color: ${palette.darkgray};
+
   &::placeholder {
     color: ${palette.gray};
   }

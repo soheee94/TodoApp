@@ -19,7 +19,7 @@ const TodoHeadBlock = styled.div`
   & > div {
     display: table-cell;
     &:nth-child(2) {
-      width: 60%;
+      width: 55%;
     }
     &:last-of-type {
       text-align: right;

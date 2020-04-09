@@ -4,6 +4,7 @@ import { getTodos, deleteTodo, toggleTodo, showModal, setTodo } from "../modules
 import TodoItem from "../components/TodoItem";
 import TodoPagination from "../components/TodoPagination";
 import TodoListTemplate from "../components/TodoListTemplate";
+import TodoSearch from "../components/TodoSearch";
 
 function TodoContainer() {
   const { loading, data: todos, error } = useSelector(state => state.todos.todos);
@@ -50,14 +51,15 @@ function TodoContainer() {
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
-  // 페이지당 보여줄 todo 갯수
-  const todosPerPage = 5;
-  const indexOfLastTodo = currentPage * todosPerPage;
-  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const todosPerPage = 5; // 페이지당 보여줄 todo 갯수
+  const indexOfLastTodo = currentPage * todosPerPage; // 현재 페이지의 마지막 인덱스
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage; // 현재 페이지의 첫번째 인덱스
   const pageNumbers = [];
-  const onClick = e => {
+  const onClickPage = e => {
     setCurrentPage(parseInt(e.target.id));
   };
+
+  // 검색
 
   if (loading && !todos) return <div>로딩중</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
@@ -69,6 +71,7 @@ function TodoContainer() {
   }
   return (
     <>
+      <TodoSearch />
       <TodoListTemplate>
         {currentTodos.map(todo => (
           <TodoItem
@@ -81,7 +84,7 @@ function TodoContainer() {
           />
         ))}
       </TodoListTemplate>
-      <TodoPagination pageNumbers={pageNumbers} onClick={onClick} currentPage={currentPage} />
+      <TodoPagination pageNumbers={pageNumbers} onClick={onClickPage} currentPage={currentPage} />
     </>
   );
 }

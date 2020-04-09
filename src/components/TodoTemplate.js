@@ -7,7 +7,7 @@ function TodoTemplate({ children }) {
 
 const TodoTemplateBlock = styled.div`
   width: 700px;
-  height: 500px;
+  height: 550px;
   background: white;
   border-radius: 10px;
   padding: 15px;

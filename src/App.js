@@ -23,7 +23,6 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <TodoSearch />
       <TodoTemplate>
         <TodoListContainer />
         <TodoFormContainer />
