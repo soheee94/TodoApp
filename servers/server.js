@@ -5,7 +5,10 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 3001;
 
 app.use(cors());
+app.use(bodyParser.json());
+const todos = [];
 
+// 오늘 날짜 반환
 function getNowDate() {
   const date = new Date();
   var year = date.getFullYear();
@@ -16,24 +19,15 @@ function getNowDate() {
   return `${year}-${month}-${day}`;
 }
 
-const todos = [];
-app.use(bodyParser.json());
-
 // get todos
 app.get("/api/todos", (req, res) => {
   res.send(todos);
-});
-// get todo by id
-app.get("/api/todos/:id", (req, res) => {
-  const todo = todos.find(c => c.id === parseInt(req.params.id));
-  if (!todo) res.status(404).send(`ID was not found`);
-  res.send(todo);
 });
 
 // post
 app.post("/api/todos", (req, res) => {
   const todo = {
-    id: todos.length + 1,
+    id: todos.length === 0 ? 1 : todos[todos.length - 1].id + 1,
     text: req.body.text,
     done: false,
     createdDate: getNowDate(),
