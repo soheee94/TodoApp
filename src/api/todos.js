@@ -23,3 +23,12 @@ export const toggleTodo = async id => {
   const response = await axios.put(`/api/todos/${id}/done`);
   return response.data;
 };
+
+export const putTodo = async data => {
+  const { id, text, ref } = data;
+  const response = await axios.put(`/api/todos/${id}`, {
+    text,
+    ref
+  });
+  return response.data;
+};

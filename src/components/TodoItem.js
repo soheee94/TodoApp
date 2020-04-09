@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdCreate } from "react-icons/md";
 import palette from "../palette";
 
-function TodoItem({ todo, getRefText, onDelete, onToggle }) {
+function TodoItem({ todo, getRefText, onDelete, onToggle, onModalOpen }) {
   const { id, text, done, createdDate, modifiedDate, ref } = todo;
   const refText = getRefText(ref);
 
@@ -23,7 +23,7 @@ function TodoItem({ todo, getRefText, onDelete, onToggle }) {
       <DateBlock>{createdDate}</DateBlock>
       <DateBlock>{modifiedDate}</DateBlock>
       <ActionBlock>
-        <MdCreate />
+        <MdCreate onClick={() => onModalOpen(id)} />
         <MdDelete onClick={() => onDelete(id)} />
       </ActionBlock>
     </TodoItemBlock>

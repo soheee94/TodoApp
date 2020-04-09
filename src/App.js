@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import palette from "./palette";
 import TodoSearch from "./components/TodoSearch";
 import TodoContainer from "./containers/TodoContainer";
+import TodoModalContainer from "./containers/TodoModalContainer";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -22,6 +23,7 @@ function App() {
       <GlobalStyle />
       <TodoSearch />
       <TodoContainer />
+      <TodoModalContainer />
     </>
   );
 }

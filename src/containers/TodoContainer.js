@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TodoTemplate from "../components/TodoTemplate";
 import TodoList from "../components/TodoList";
-import TodoAddForm from "../components/TodoAddForm";
-import { getTodos, postTodo, deleteTodo, toggleTodo } from "../modules/todos";
+import TodoForm from "../components/TodoForm";
+import { getTodos, postTodo, deleteTodo, toggleTodo, showModal, setTodo } from "../modules/todos";
 import TodoItem from "../components/TodoItem";
 
 function TodoContainer() {
-  const todos = useSelector(state => state.todos.data);
+  const todos = useSelector(state => state.todos.todos.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,7 +47,12 @@ function TodoContainer() {
     ref.every(refStatusCheck) ? dispatch(toggleTodo(id)) : alert("먼저 할 일을 완료해주세요!");
   };
 
-  // 수정
+  // 수정 팝업 오픈
+  const onModalOpen = id => {
+    const todo = todos.find(todo => todo.id === id);
+    dispatch(setTodo(todo));
+    dispatch(showModal());
+  };
 
   return (
     <TodoTemplate>
@@ -60,10 +65,11 @@ function TodoContainer() {
               key={todo.id}
               onDelete={onDelete}
               onToggle={onToggle}
+              onModalOpen={onModalOpen}
             />
           ))}
       </TodoList>
-      <TodoAddForm todos={todos} onCreate={onCreate} />
+      <TodoForm todos={todos} onCreate={onCreate} />
     </TodoTemplate>
   );
 }

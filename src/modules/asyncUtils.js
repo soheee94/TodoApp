@@ -25,21 +25,30 @@ export const handleAsyncActions = (type, keepData = false) => {
     switch (action.type) {
       case type:
         return {
-          loading: true,
-          data: keepData ? state.data : null,
-          error: null
+          ...state,
+          todos: {
+            loading: true,
+            data: keepData ? state.data : null,
+            error: null
+          }
         };
       case SUCCESS:
         return {
-          loading: false,
-          data: action.payload,
-          error: null
+          ...state,
+          todos: {
+            loading: false,
+            data: action.payload,
+            error: null
+          }
         };
       case ERROR:
         return {
-          loading: false,
-          data: null,
-          error: action.payload
+          ...state,
+          todos: {
+            loading: false,
+            data: null,
+            error: action.payload
+          }
         };
       default:
         return state;

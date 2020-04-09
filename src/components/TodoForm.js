@@ -4,13 +4,14 @@ import { MdAdd } from "react-icons/md";
 import palette from "../palette";
 import { Multiselect } from "multiselect-react-dropdown";
 
-function TodoAddForm({ todos, onCreate }) {
-  const [value, setValue] = useState("");
-  const [selectedList, setSelectedList] = useState([]);
+function TodoForm({ todos, todo, refs, onCreate }) {
+  const [value, setValue] = useState(todo ? todo.text : "");
+  const [selectedList, setSelectedList] = useState(todo ? refs : []);
   const onSubmit = e => {
     // 새로고침 방지
     e.preventDefault();
     onCreate({
+      id: todo && todo.id,
       text: value,
       ref: [...new Set(selectedList.map(selectedItem => selectedItem.id))]
     });
@@ -18,6 +19,9 @@ function TodoAddForm({ todos, onCreate }) {
     setSelectedList([]);
   };
   const onSelect = selectedList => {
+    setSelectedList(selectedList);
+  };
+  const onRemove = selectedList => {
     setSelectedList(selectedList);
   };
   const onChange = e => {
@@ -38,6 +42,7 @@ function TodoAddForm({ todos, onCreate }) {
             options={todos ? todos : []}
             displayValue="text"
             onSelect={onSelect}
+            onRemove={onRemove}
             selectedValues={selectedList}
             placeholder="먼저 할 일"
             style={multiSelectStyle}
@@ -76,9 +81,9 @@ const Form = styled.form`
   align-items: center;
   margin-bottom: 15px;
   padding-top: 15px;
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
-  width: calc(100% - 30px);
+  width: calc(100% - 30px); */
   border-top: 1px solid ${palette.lightgray};
 `;
 
@@ -117,4 +122,4 @@ const Button = styled.button`
   }
 `;
 
-export default TodoAddForm;
+export default TodoForm;

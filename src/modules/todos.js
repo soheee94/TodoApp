@@ -19,30 +19,46 @@ const TOGGLE_TODO = "todos/TOGGLE_TODO";
 const TOGGLE_TODO_SUCCESS = "todos/TOGGLE_TODO_SUCCESS";
 const TOGGLE_TODO_ERROR = "todos/TOGGLE_TODO_ERROR";
 
-// const MODIFY_TODO = "todos/MODIFY_TODO";
+const SHOW_MODAL = "todos/SHOW_MODAL";
+const CLOSE_MODAL = "todos/CLOSE_MODAL";
+const SET_TODO = "todos/SET_TODO";
+
+const PUT_TODO = "todos/PUT_TODO";
+const PUT_TODO_SUCCESS = "todos/PUT_TODO_SUCCESS";
+const PUT_TODO_ERROR = "todos/PUT_TODO_ERROR";
 
 // 초기상태
 const initialState = {
-  loading: false,
-  data: null,
-  error: null
+  todos: {
+    loading: false,
+    data: null,
+    error: null
+  },
+  todo: {},
+  modalOpen: false
 };
 
 export const getTodos = () => ({ type: GET_TODOS });
 export const postTodo = data => ({ type: POST_TODO, payload: data });
 export const deleteTodo = id => ({ type: DELETE_TODO, payload: id });
 export const toggleTodo = id => ({ type: TOGGLE_TODO, payload: id });
+export const showModal = () => ({ type: SHOW_MODAL });
+export const closeModal = () => ({ type: CLOSE_MODAL });
+export const setTodo = data => ({ type: SET_TODO, payload: data });
+export const putTodo = data => ({ type: PUT_TODO, payload: data });
 
 const getTodosSaga = createPromiseSaga(GET_TODOS, todosAPI.getTodos);
 const postTodoSaga = createPromiseSaga(POST_TODO, todosAPI.postTodo);
 const deleteTodoSaga = createPromiseSaga(DELETE_TODO, todosAPI.deleteTodo);
 const toggleTodoSaga = createPromiseSaga(TOGGLE_TODO, todosAPI.toggleTodo);
+const putTodoSaga = createPromiseSaga(PUT_TODO, todosAPI.putTodo);
 
 export function* todosSaga() {
   yield takeEvery(GET_TODOS, getTodosSaga);
   yield takeLatest(POST_TODO, postTodoSaga);
   yield takeLatest(DELETE_TODO, deleteTodoSaga);
   yield takeEvery(TOGGLE_TODO, toggleTodoSaga);
+  yield takeLatest(PUT_TODO, putTodoSaga);
 }
 
 export default function todo(state = initialState, action) {
@@ -63,6 +79,25 @@ export default function todo(state = initialState, action) {
     case TOGGLE_TODO_SUCCESS:
     case TOGGLE_TODO_ERROR:
       return handleAsyncActions(TOGGLE_TODO, true)(state, action);
+    case PUT_TODO:
+    case PUT_TODO_SUCCESS:
+    case PUT_TODO_ERROR:
+      return handleAsyncActions(PUT_TODO, true)(state, action);
+    case SHOW_MODAL:
+      return {
+        ...state,
+        modalOpen: true
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        modalOpen: false
+      };
+    case SET_TODO:
+      return {
+        ...state,
+        todo: action.payload
+      };
     default:
       return state;
   }

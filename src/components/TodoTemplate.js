@@ -16,6 +16,7 @@ const TodoTemplateBlock = styled.div`
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 export default TodoTemplate;
