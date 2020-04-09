@@ -7,7 +7,7 @@ import { getTodos, postTodo, deleteTodo, toggleTodo, showModal, setTodo } from "
 import TodoItem from "../components/TodoItem";
 
 function TodoContainer() {
-  const todos = useSelector(state => state.todos.todos.data);
+  const { loading, data: todos, error } = useSelector(state => state.todos.todos);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,20 +54,31 @@ function TodoContainer() {
     dispatch(showModal());
   };
 
-  return (
-    <TodoTemplate>
-      <TodoList>
+  // fetch 상태 표기
+  const DisplayStatus = () => {
+    if (loading && !todos) return <div>로딩중</div>;
+    if (error) return <div>에러가 발생했습니다.</div>;
+    return (
+      <>
         {todos &&
           todos.map(todo => (
             <TodoItem
               todo={todo}
-              getRefText={getRefText}
+              refs={getRefText(todo.ref)}
               key={todo.id}
               onDelete={onDelete}
               onToggle={onToggle}
               onModalOpen={onModalOpen}
             />
           ))}
+      </>
+    );
+  };
+
+  return (
+    <TodoTemplate>
+      <TodoList>
+        <DisplayStatus />
       </TodoList>
       <TodoForm todos={todos} onCreate={onCreate} />
     </TodoTemplate>

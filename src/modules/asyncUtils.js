@@ -28,7 +28,7 @@ export const handleAsyncActions = (type, keepData = false) => {
           ...state,
           todos: {
             loading: true,
-            data: keepData ? state.data : null,
+            data: keepData ? state.todos.data : null,
             error: null
           }
         };
