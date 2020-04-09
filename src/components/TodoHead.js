@@ -14,7 +14,7 @@ function TodoHead() {
 }
 
 const TodoHeadBlock = styled.div`
-  display: table-row;
+  display: table-header-group;
   font-size: 0.75rem;
   & > div {
     display: table-cell;
