@@ -18,10 +18,7 @@ function TodoForm({ todos, todo, refs, onCreate }) {
     setValue("");
     setSelectedList([]);
   };
-  const onSelect = selectedList => {
-    setSelectedList(selectedList);
-  };
-  const onRemove = selectedList => {
+  const onChangeSelect = selectedList => {
     setSelectedList(selectedList);
   };
   const onChange = e => {
@@ -41,8 +38,8 @@ function TodoForm({ todos, todo, refs, onCreate }) {
           <Multiselect
             options={todos ? todos : []}
             displayValue="text"
-            onSelect={onSelect}
-            onRemove={onRemove}
+            onSelect={onChangeSelect}
+            onRemove={onChangeSelect}
             selectedValues={selectedList}
             placeholder="먼저 할 일"
             style={multiSelectStyle}
@@ -81,9 +78,6 @@ const Form = styled.form`
   align-items: center;
   margin-bottom: 15px;
   padding-top: 15px;
-  /* position: absolute;
-  bottom: 0;
-  width: calc(100% - 30px); */
   border-top: 1px solid ${palette.lightgray};
 `;
 

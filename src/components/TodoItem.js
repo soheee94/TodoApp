@@ -3,10 +3,8 @@ import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdCreate } from "react-icons/md";
 import palette from "../palette";
 
-function TodoItem({ todo, getRefText, onDelete, onToggle, onModalOpen }) {
+function TodoItem({ todo, refs, onDelete, onToggle, onModalOpen }) {
   const { id, text, done, createdDate, modifiedDate, ref } = todo;
-  const refText = getRefText(ref);
-
   return (
     <TodoItemBlock>
       <div>
@@ -16,9 +14,7 @@ function TodoItem({ todo, getRefText, onDelete, onToggle, onModalOpen }) {
       </div>
       <div>
         <Text done={done}>{text}</Text>
-        <div>
-          {refText && refText.map(ref => <RefTodoItem key={ref.id}>@{ref.text}</RefTodoItem>)}
-        </div>
+        <div>{refs && refs.map(ref => <RefTodoItem key={ref.id}>@{ref.text}</RefTodoItem>)}</div>
       </div>
       <DateBlock>{createdDate}</DateBlock>
       <DateBlock>{modifiedDate}</DateBlock>
