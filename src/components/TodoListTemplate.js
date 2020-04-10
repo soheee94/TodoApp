@@ -5,10 +5,7 @@ import TodoHead from "./TodoHead";
 function TodoListTemplate({ children }) {
   return (
     <TodoListBlock>
-      <div>
-        <TodoHead />
-        {children}
-      </div>
+      <div>{children}</div>
     </TodoListBlock>
   );
 }

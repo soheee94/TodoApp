@@ -6,7 +6,16 @@ const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
-const todos = [];
+const todos = [
+  {
+    id: 1,
+    text: "먼저 있지롱",
+    done: false,
+    createdDate: "2020-03-03",
+    modifiedDate: "2020-05-19",
+    ref: [],
+  },
+];
 
 // 오늘 날짜 반환
 function getNowDate() {
@@ -32,7 +41,7 @@ app.post("/api/todos", (req, res) => {
     done: false,
     createdDate: getNowDate(),
     modifiedDate: getNowDate(),
-    ref: req.body.ref
+    ref: req.body.ref,
   };
   todos.push(todo);
   res.send(todos);
@@ -40,7 +49,7 @@ app.post("/api/todos", (req, res) => {
 
 // put
 app.put("/api/todos/:id", (req, res) => {
-  const todo = todos.find(c => c.id === parseInt(req.params.id));
+  const todo = todos.find((c) => c.id === parseInt(req.params.id));
   // 해당 ID 를 가진 todo가 없을 때, 404
   if (!todo) res.status(404).send(`ID was not found`);
   todo.text = req.body.text;
@@ -51,14 +60,14 @@ app.put("/api/todos/:id", (req, res) => {
 
 // put - done(toggle)
 app.put("/api/todos/:id/done", (req, res) => {
-  const todo = todos.find(c => c.id === parseInt(req.params.id));
+  const todo = todos.find((c) => c.id === parseInt(req.params.id));
   // 해당 ID 를 가진 todo가 없을 때, 404
   if (!todo) res.status(404).send(`ID was not found`);
   todo.done = !todo.done;
   // 완료 해제시, 자신을 참조 하고 있는 할 일도 완료 되어있을 때 해제
   if (!todo.done) {
     const refCheck = async () => {
-      await todos.forEach(targetTodo => {
+      await todos.forEach((targetTodo) => {
         if (targetTodo.ref.includes(todo.id)) {
           targetTodo.done = false;
         }
@@ -72,13 +81,13 @@ app.put("/api/todos/:id/done", (req, res) => {
 
 // delete
 app.delete("/api/todos/:id", (req, res) => {
-  const todo = todos.find(c => c.id === parseInt(req.params.id));
+  const todo = todos.find((c) => c.id === parseInt(req.params.id));
   // 해당 ID 를 가진 todo가 없을 때, 404
   if (!todo) return res.status(404).send(`ID was not found`);
   const index = todos.indexOf(todo);
   // 삭제 전, 자신을 참조하고 있는 할 일에서도 참조 해제
   const refCheck = async () => {
-    await todos.forEach(targetTodo => {
+    await todos.forEach((targetTodo) => {
       if (targetTodo.ref.includes(todo.id)) {
         const idx = targetTodo.ref.indexOf(todo.id);
         targetTodo.ref.splice(idx, 1);

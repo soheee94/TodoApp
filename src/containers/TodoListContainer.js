@@ -6,15 +6,16 @@ import {
   toggleTodo,
   showModal,
   setTodo,
+  sortTodosASC,
+  sortTodosDESC,
 } from "../modules/todos";
 import TodoItem from "../components/TodoItem";
 import TodoPagination from "../components/TodoPagination";
 import TodoListTemplate from "../components/TodoListTemplate";
+import TodoHead from "../components/TodoHead";
 
 function TodoContainer() {
-  const { loading, data: todos, error } = useSelector(
-    (state) => state.todos.todos
-  );
+  const { loading, data: todos, error } = useSelector((state) => state.todos.todos);
   const keyword = useSelector((state) => state.todos.keyword);
   const dispatch = useDispatch();
 
@@ -47,9 +48,7 @@ function TodoContainer() {
       const found = todos.find((todo) => todo.id === element);
       return found.done;
     };
-    ref.every(refStatusCheck)
-      ? dispatch(toggleTodo(id))
-      : alert("먼저 할 일을 완료해주세요!");
+    ref.every(refStatusCheck) ? dispatch(toggleTodo(id)) : alert("먼저 할 일을 완료해주세요!");
   };
 
   // 수정 팝업 오픈
@@ -67,6 +66,24 @@ function TodoContainer() {
   const pageNumbers = [];
   const onClickPage = (e) => {
     setCurrentPage(parseInt(e.target.id));
+  };
+
+  // 정렬
+  const [order, setOrder] = useState({
+    done: null,
+    text: null,
+    createdDate: null,
+    modifiedDate: null,
+  });
+  const onClickOrder = (type) => {
+    setOrder({
+      done: null,
+      text: null,
+      createdDate: null,
+      modifiedDate: null,
+      [type]: order[type] === null ? true : !order[type],
+    });
+    order[type] ? dispatch(sortTodosASC(type)) : dispatch(sortTodosDESC(type));
   };
 
   if (loading && !todos) return <div>로딩중</div>;
@@ -89,6 +106,7 @@ function TodoContainer() {
   return (
     <>
       <TodoListTemplate>
+        <TodoHead onClick={onClickOrder} order={order} />
         {currentTodos.map((todo) => (
           <TodoItem
             todo={todo}
@@ -100,11 +118,7 @@ function TodoContainer() {
           />
         ))}
       </TodoListTemplate>
-      <TodoPagination
-        pageNumbers={pageNumbers}
-        onClick={onClickPage}
-        currentPage={currentPage}
-      />
+      <TodoPagination pageNumbers={pageNumbers} onClick={onClickPage} currentPage={currentPage} />
     </>
   );
 }

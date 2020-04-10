@@ -29,27 +29,32 @@ const PUT_TODO_ERROR = "todos/PUT_TODO_ERROR";
 
 const CHANGE_SEARCH = "todos/CHANGE_SEARCH";
 
+const SORT_TODOS_ASC = "todos/SORT_TODOS_ASC";
+const SORT_TODOS_DESC = "todos/SORT_TODOS_DESC";
+
 // 초기상태
 const initialState = {
   todos: {
     loading: false,
     data: null,
-    error: null
+    error: null,
   },
   todo: {},
   keyword: "",
-  modalOpen: false
+  modalOpen: false,
 };
 
 export const getTodos = () => ({ type: GET_TODOS });
-export const postTodo = data => ({ type: POST_TODO, payload: data });
-export const deleteTodo = id => ({ type: DELETE_TODO, payload: id });
-export const toggleTodo = id => ({ type: TOGGLE_TODO, payload: id });
+export const postTodo = (data) => ({ type: POST_TODO, payload: data });
+export const deleteTodo = (id) => ({ type: DELETE_TODO, payload: id });
+export const toggleTodo = (id) => ({ type: TOGGLE_TODO, payload: id });
 export const showModal = () => ({ type: SHOW_MODAL });
 export const closeModal = () => ({ type: CLOSE_MODAL });
-export const setTodo = data => ({ type: SET_TODO, payload: data });
-export const putTodo = data => ({ type: PUT_TODO, payload: data });
-export const changeSearch = keyword => ({ type: CHANGE_SEARCH, payload: keyword });
+export const setTodo = (data) => ({ type: SET_TODO, payload: data });
+export const putTodo = (data) => ({ type: PUT_TODO, payload: data });
+export const changeSearch = (keyword) => ({ type: CHANGE_SEARCH, payload: keyword });
+export const sortTodosASC = (type) => ({ type: SORT_TODOS_ASC, payload: type });
+export const sortTodosDESC = (type) => ({ type: SORT_TODOS_DESC, payload: type });
 
 const getTodosSaga = createPromiseSaga(GET_TODOS, todosAPI.getTodos);
 const postTodoSaga = createPromiseSaga(POST_TODO, todosAPI.postTodo);
@@ -90,23 +95,58 @@ export default function todo(state = initialState, action) {
     case SHOW_MODAL:
       return {
         ...state,
-        modalOpen: true
+        modalOpen: true,
       };
     case CLOSE_MODAL:
       return {
         ...state,
-        modalOpen: false
+        modalOpen: false,
       };
     case SET_TODO:
       return {
         ...state,
-        todo: action.payload
+        todo: action.payload,
       };
     case CHANGE_SEARCH:
       return {
         ...state,
-        keyword: action.payload
+        keyword: action.payload,
       };
+    case SORT_TODOS_DESC:
+      return {
+        ...state,
+        todos: {
+          ...state.todos,
+          data: state.todos.data.sort(function (a, b) {
+            if (b[action.payload] < a[action.payload]) {
+              return -1;
+            }
+            if (b[action.payload] > a[action.payload]) {
+              return 1;
+            }
+            // 이름이 같을 경우
+            return 0;
+          }),
+        },
+      };
+    case SORT_TODOS_ASC:
+      return {
+        ...state,
+        todos: {
+          ...state.todos,
+          data: state.todos.data.sort(function (a, b) {
+            if (b[action.payload] > a[action.payload]) {
+              return -1;
+            }
+            if (b[action.payload] < a[action.payload]) {
+              return 1;
+            }
+            // 이름이 같을 경우
+            return 0;
+          }),
+        },
+      };
+
     default:
       return state;
   }
