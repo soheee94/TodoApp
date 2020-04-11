@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const fs = require("fs");
 const port = process.env.PORT || 3001;
 
 app.use(cors());
@@ -97,6 +98,30 @@ app.delete("/api/todos/:id", (req, res) => {
   refCheck();
   // 삭제
   todos.splice(index, 1);
+  res.send(todos);
+});
+
+// 파일 다운로드(백업)
+app.get("/fileDownload", (req, res) => {
+  fs.writeFile("./todos.json", JSON.stringify(todos), (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    res.send("SUCCESS");
+  });
+});
+
+// 파일 업로드(복원)
+app.post("/fileUpload", (req, res) => {
+  const changeTodosId = async () => {
+    await req.body.todos.forEach((targetTodo) => {
+      targetTodo.id = todos[todos.length - 1].id + 1;
+      todos.push(targetTodo);
+    });
+  };
+
+  changeTodosId();
   res.send(todos);
 });
 

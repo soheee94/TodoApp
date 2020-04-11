@@ -10,7 +10,7 @@ const TodoSearchBlock = styled.input`
   width: 700px;
   height: 50px;
   background: white;
-  margin: 0 auto 15px auto;
+  margin: 15px auto;
   border-radius: 10px;
   outline: none;
   border: none;

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import TodoHead from "./TodoHead";
 
 function TodoListTemplate({ children }) {
   return (

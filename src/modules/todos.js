@@ -32,6 +32,11 @@ const CHANGE_SEARCH = "todos/CHANGE_SEARCH";
 const SORT_TODOS_ASC = "todos/SORT_TODOS_ASC";
 const SORT_TODOS_DESC = "todos/SORT_TODOS_DESC";
 
+const FILE_UPLOAD = "todos/FILE_UPLOAD";
+const FILE_UPLOAD_SUCCESS = "todos/FILE_UPLOAD_SUCCESS";
+const FILE_UPLOAD_ERROR = "todos/FILE_UPLOAD_ERROR";
+const FILE_DOWNLOAD = "todos/FILE_DOWNLOAD";
+const FILE_DOWNLOAD_SUCCESS = "todos/FILE_DOWNLOAD_SUCCESS";
 // 초기상태
 const initialState = {
   todos: {
@@ -55,12 +60,16 @@ export const putTodo = (data) => ({ type: PUT_TODO, payload: data });
 export const changeSearch = (keyword) => ({ type: CHANGE_SEARCH, payload: keyword });
 export const sortTodosASC = (type) => ({ type: SORT_TODOS_ASC, payload: type });
 export const sortTodosDESC = (type) => ({ type: SORT_TODOS_DESC, payload: type });
+export const fileUpload = (todos) => ({ type: FILE_UPLOAD, payload: todos });
+export const fileDownload = () => ({ type: FILE_DOWNLOAD });
 
 const getTodosSaga = createPromiseSaga(GET_TODOS, todosAPI.getTodos);
 const postTodoSaga = createPromiseSaga(POST_TODO, todosAPI.postTodo);
 const deleteTodoSaga = createPromiseSaga(DELETE_TODO, todosAPI.deleteTodo);
 const toggleTodoSaga = createPromiseSaga(TOGGLE_TODO, todosAPI.toggleTodo);
 const putTodoSaga = createPromiseSaga(PUT_TODO, todosAPI.putTodo);
+const fileUploadSaga = createPromiseSaga(FILE_UPLOAD, todosAPI.fileUpload);
+const fileDownloadSaga = createPromiseSaga(FILE_DOWNLOAD, todosAPI.fileDownload);
 
 export function* todosSaga() {
   yield takeEvery(GET_TODOS, getTodosSaga);
@@ -68,6 +77,8 @@ export function* todosSaga() {
   yield takeLatest(DELETE_TODO, deleteTodoSaga);
   yield takeEvery(TOGGLE_TODO, toggleTodoSaga);
   yield takeLatest(PUT_TODO, putTodoSaga);
+  yield takeEvery(FILE_DOWNLOAD, fileDownloadSaga);
+  yield takeEvery(FILE_UPLOAD, fileUploadSaga);
 }
 
 export default function todo(state = initialState, action) {
@@ -146,6 +157,15 @@ export default function todo(state = initialState, action) {
           }),
         },
       };
+    case FILE_UPLOAD:
+    case FILE_UPLOAD_SUCCESS:
+    case FILE_UPLOAD_ERROR:
+      return handleAsyncActions(FILE_UPLOAD, true)(state, action);
+    case FILE_DOWNLOAD_SUCCESS:
+      if (action.payload === "SUCCESS") {
+        alert("저장이 완료 되었습니다.");
+      }
+      return state;
 
     default:
       return state;

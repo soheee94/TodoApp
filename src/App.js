@@ -6,6 +6,7 @@ import TodoModalContainer from "./containers/TodoModalContainer";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoFormContainer from "./containers/TodoFormContainer";
 import TodoSearchContainer from "./containers/TodoSearchContainer";
+import TodoFileContainer from "./containers/TodoFileContainer";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -23,6 +24,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <TodoFileContainer />
       <TodoSearchContainer />
       <TodoTemplate>
         <TodoListContainer />

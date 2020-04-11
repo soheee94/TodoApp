@@ -1,19 +1,19 @@
-import { call, put, delay } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
 export const createPromiseSaga = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-  return function*(action) {
+  return function* (action) {
     try {
       const payload = yield call(promiseCreator, action.payload);
       yield put({
         type: SUCCESS,
-        payload
+        payload,
       });
     } catch (e) {
       yield put({
         type: ERROR,
         payload: e,
-        error: true
+        error: true,
       });
     }
   };
@@ -29,8 +29,8 @@ export const handleAsyncActions = (type, keepData = false) => {
           todos: {
             loading: true,
             data: keepData ? state.todos.data : null,
-            error: null
-          }
+            error: null,
+          },
         };
       case SUCCESS:
         return {
@@ -38,8 +38,8 @@ export const handleAsyncActions = (type, keepData = false) => {
           todos: {
             loading: false,
             data: action.payload,
-            error: null
-          }
+            error: null,
+          },
         };
       case ERROR:
         return {
@@ -47,8 +47,8 @@ export const handleAsyncActions = (type, keepData = false) => {
           todos: {
             loading: false,
             data: null,
-            error: action.payload
-          }
+            error: action.payload,
+          },
         };
       default:
         return state;
