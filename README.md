@@ -32,7 +32,7 @@
 
 - 실행 후 초기 화면
 
-![todolist](/images/todolist.png?raw=true){: width="100" height="100"}
+![todolist](/images/todolist.png?raw=true)
 
 ### 할 일 추가
 
