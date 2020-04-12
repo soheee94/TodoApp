@@ -8,13 +8,31 @@
 - axios
 - node.js
 
+## 실행 방법
+
+1. 프로젝트 clone 혹은 download
+2. yarn 설치
+   ```cmd
+   yarn install
+   ```
+3. 서버 실행
+
+   ```cmd
+   node ./servers/server.js
+   ```
+
+4. 프로젝트 실행
+   ```cmd
+   yarn start
+   ```
+
 ## 기능 소개
 
 ### 할 일 조회
 
 - 실행 후 초기 화면
 
-![todolist](/images/todolist.png?raw=true)
+![todolist](/images/todolist.png?raw=true){: width="100" height="100"}
 
 ### 할 일 추가
 
@@ -77,21 +95,3 @@
 - json 파일 형태로 되어있는 할 일 목록을 복원
 
 ![uploadtodo](/images/upload.gif?raw=true)
-
-## 실행 방법
-
-1. 프로젝트 clone 혹은 download
-2. yarn 설치
-   ```cmd
-   yarn install
-   ```
-3. 서버 실행
-
-   ```cmd
-   node ./servers/server.js
-   ```
-
-4. 프로젝트 실행
-   ```cmd
-   yarn start
-   ```
