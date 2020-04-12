@@ -166,8 +166,6 @@ export default function todo(state = initialState, action) {
     case FILE_DOWNLOAD_ERROR:
       if (action.payload === "SUCCESS") {
         alert("저장이 완료 되었습니다.");
-      } else {
-        alert(action.payload);
       }
       return state;
 
