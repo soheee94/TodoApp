@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import palette from "../palette";
+import palette from "../lib/palette";
 
 function TodoSearch({ value, onChange }) {
   return <TodoSearchBlock placeholder="검색" value={value} onChange={onChange}></TodoSearchBlock>;

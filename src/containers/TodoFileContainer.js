@@ -1,11 +1,12 @@
 import React from "react";
-import TodoFileButton from "../components/TodoFileButton";
 import styled from "styled-components";
+import TodoFileButton from "../components/TodoFileButton";
 import { useDispatch } from "react-redux";
 import { fileDownload, fileUpload } from "../modules/todos";
 
 function TodoFileContainer() {
   const dispatch = useDispatch();
+
   // 파일 다운로드(백업)
   const onFileDownload = () => dispatch(fileDownload());
 
@@ -14,29 +15,29 @@ function TodoFileContainer() {
     const fileSelector = buildFileSelector();
     fileSelector.click();
   };
-
+  // input[type='file'] 생성
   const buildFileSelector = () => {
     const fileSelector = document.createElement("input");
     fileSelector.setAttribute("type", "file");
     fileSelector.onchange = onChangeFile;
+    // json 파일만 허용
     fileSelector.accept = "application/JSON";
     return fileSelector;
   };
-
+  // file 변경
   const onChangeFile = (event) => {
     event.stopPropagation();
     event.preventDefault();
-    var file = event.target.files[0];
-
-    var reader = new FileReader();
+    const file = event.target.files[0];
+    const reader = new FileReader();
     reader.onload = onReaderLoad;
     reader.readAsText(file);
   };
-
-  function onReaderLoad(event) {
-    var loadTodos = JSON.parse(event.target.result);
+  // json 파일 읽기
+  const onReaderLoad = (event) => {
+    const loadTodos = JSON.parse(event.target.result);
     dispatch(fileUpload(loadTodos));
-  }
+  };
 
   return (
     <TodoFileButtonsBlock>

@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 const todos = [
   {
     id: 1,
-    text: "먼저 있지롱",
+    text: "먼저 할 일 1번",
     done: false,
-    createdDate: "2020-03-03",
-    modifiedDate: "2020-05-19",
+    createdDate: "2020-04-10",
+    modifiedDate: "2020-04-10",
     ref: [],
   },
 ];
@@ -105,7 +105,7 @@ app.delete("/api/todos/:id", (req, res) => {
 app.get("/fileDownload", (req, res) => {
   fs.writeFile("./todos.json", JSON.stringify(todos), (err) => {
     if (err) {
-      console.error(err);
+      res.send(err);
       return;
     }
     res.send("SUCCESS");

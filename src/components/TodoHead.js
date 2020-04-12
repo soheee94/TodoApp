@@ -2,13 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
-function TodoHead({ onClick, order }) {
-  const { done, text, createdDate, modifiedDate } = order;
+function TodoHead({ onClick, sort }) {
+  const { done, text, createdDate, modifiedDate } = sort;
+
+  // 상태에 따른 아이콘 표시
   const DisplaySortIcon = ({ type }) => {
+    // 초기 상태
     if (type === null) return <FaSort />;
+    // 내림차순
     if (type) return <FaSortDown />;
+    // 오름차순
     return <FaSortUp />;
   };
+
   return (
     <TodoHeadBlock>
       <div onClick={() => onClick("done")}>

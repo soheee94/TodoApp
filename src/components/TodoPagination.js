@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import palette from "../palette";
+import palette from "../lib/palette";
 
 function TodoPagination({ pageNumbers, onClick, currentPage }) {
   return (
     <PaginationBlock>
-      {pageNumbers.map(number => (
+      {pageNumbers.map((number) => (
         <div
           key={number}
           id={number}

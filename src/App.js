@@ -1,6 +1,6 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import palette from "./palette";
+import palette from "./lib/palette";
 import TodoListContainer from "./containers/TodoListContainer";
 import TodoModalContainer from "./containers/TodoModalContainer";
 import TodoTemplate from "./components/TodoTemplate";
@@ -12,7 +12,8 @@ function App() {
   const GlobalStyle = createGlobalStyle`
     body{
       width: 100%;
-      height : 100vh;
+      min-height : 100vh;
+      overflow-y : auto;
       background : ${palette.lightgray};
       display: flex;
       justify-content: center;

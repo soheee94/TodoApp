@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdAdd } from "react-icons/md";
-import palette from "../palette";
+import palette from "../lib/palette";
 import { Multiselect } from "multiselect-react-dropdown";
 
+// props 에 todo가 있는 경우 수정 모달의 폼
 function TodoForm({ todos, todo, refs, onCreate }) {
   const [value, setValue] = useState(todo ? todo.text : "");
   const [selectedList, setSelectedList] = useState(todo ? refs : []);
-  const onSubmit = e => {
+  // submit
+  const onSubmit = (e) => {
     // 새로고침 방지
     e.preventDefault();
     onCreate({
       id: todo && todo.id,
       text: value,
-      ref: [...new Set(selectedList.map(selectedItem => selectedItem.id))]
+      ref: [...new Set(selectedList.map((selectedItem) => selectedItem.id))],
     });
     setValue("");
     setSelectedList([]);
   };
-  const onChangeSelect = selectedList => {
+  // 먼저 할 일 (Select) 추가 및 제거
+  const onChangeSelect = (selectedList) => {
     setSelectedList(selectedList);
   };
-  const onChange = e => {
+  // 할 일 내용 (input) 변경
+  const onChangeInput = (e) => {
     setValue(e.target.value);
   };
   return (
@@ -32,7 +36,7 @@ function TodoForm({ todos, todo, refs, onCreate }) {
             placeholder="할 일을 입력하세요"
             autoFocus
             value={value}
-            onChange={onChange}
+            onChange={onChangeInput}
             required
           ></Input>
           <Multiselect
@@ -61,18 +65,18 @@ const multiSelectStyle = {
     color: palette.gray,
     fontFamily: "inherit",
     padding: "10px 15px",
-    borderRadius: "10px"
+    borderRadius: "10px",
   },
   inputField: {
-    margin: "0"
+    margin: "0",
   },
   chips: {
     background: palette.blue,
-    marginBottom: 0
+    marginBottom: 0,
   },
   option: {
-    fontSize: "0.875rem"
-  }
+    fontSize: "0.875rem",
+  },
 };
 
 const Form = styled.form`

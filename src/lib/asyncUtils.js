@@ -1,20 +1,17 @@
-import { call, put } from "redux-saga/effects";
-
-export const createPromiseSaga = (type, promiseCreator) => {
+// Promise에 기반한 Thunk를 만들어주는 함수
+export const createPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-  return function* (action) {
+  return (param) => async (dispatch) => {
+    // 요청 시작
+    dispatch({ type, param });
     try {
-      const payload = yield call(promiseCreator, action.payload);
-      yield put({
-        type: SUCCESS,
-        payload,
-      });
+      // 결과물의 이름은 payload로 통일
+      const payload = await promiseCreator(param);
+      // 성공
+      dispatch({ type: SUCCESS, payload });
     } catch (e) {
-      yield put({
-        type: ERROR,
-        payload: e,
-        error: true,
-      });
+      // 실패
+      dispatch({ type: ERROR, payload: e, error: true });
     }
   };
 };

@@ -33,13 +33,13 @@ export const putTodo = async (data) => {
   return response.data;
 };
 
-export async function fileUpload(todos) {
+export const fileUpload = async (todos) => {
   const response = await axios.post("/fileUpload", {
     todos,
   });
 
   return response.data;
-}
+};
 
 export const fileDownload = async () => {
   const response = await axios.get(`/fileDownload`);

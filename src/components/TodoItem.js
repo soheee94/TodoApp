@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdCreate } from "react-icons/md";
-import palette from "../palette";
+import palette from "../lib/palette";
 
 function TodoItem({ todo, refs, onDelete, onToggle, onModalOpen }) {
   const { id, text, done, createdDate, modifiedDate, ref } = todo;
@@ -14,7 +14,7 @@ function TodoItem({ todo, refs, onDelete, onToggle, onModalOpen }) {
       </div>
       <div>
         <Text done={done}>{text}</Text>
-        <div>{refs && refs.map(ref => <RefTodoItem key={ref.id}>@{ref.text}</RefTodoItem>)}</div>
+        <div>{refs && refs.map((ref) => <RefTodoItem key={ref.id}>@{ref.text}</RefTodoItem>)}</div>
       </div>
       <DateBlock>{createdDate}</DateBlock>
       <DateBlock>{modifiedDate}</DateBlock>
@@ -46,7 +46,7 @@ const Checkbox = styled.div`
   justify-content: center;
   cursor: pointer;
   margin-right: 25px;
-  ${props =>
+  ${(props) =>
     props.done &&
     css`
       background: ${palette.yellow};
@@ -58,7 +58,7 @@ const Checkbox = styled.div`
 const Text = styled.div`
   color: ${palette.darkgray};
   font-weight: bold;
-  ${props =>
+  ${(props) =>
     props.done &&
     css`
       opacity: 0.5;

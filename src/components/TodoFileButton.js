@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import palette from "../palette";
+import palette from "../lib/palette";
 
 function TodoFileButton({ onClick, text }) {
   return <FileButton onClick={onClick}>{text}</FileButton>;
