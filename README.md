@@ -17,6 +17,14 @@
    ```
 3. 서버 실행
 
+   - express, cors, body-parser 설치 안되어 있는 경우에 설치
+
+   ```cmd
+   yarn add express cors body-parser
+   ```
+
+   - 서버 실행
+
    ```cmd
    node ./servers/server.js
    ```
